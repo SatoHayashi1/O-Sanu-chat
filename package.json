@@ -5,12 +5,13 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev":"nodemon server",
+    "dev": "nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sato",
   "license": "ISC",
   "dependencies": {
+    "socket.io": "^4.8.1",
     "soket.io": "^0.0.1-security",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
