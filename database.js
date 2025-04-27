@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { userInfo } = require("os");
 
 const dbFile = "./chat.db";
 const exists = fs.existsSync(dbFile);
@@ -45,3 +46,21 @@ try {
     console.error(dbError);
 }
 })
+module.exports = {
+    getMessage: async () =>{
+        try {
+            return await db.all(
+                `SELECT msg_id, content, login, user_id from message
+                JOIN user ON message.autor = user.user_id`
+            );
+        } catch (dbError) {
+            console.error(dbError);
+        }
+    },
+    addMessage: async(msg, userId) => {
+        await db.run(
+            `INSERT INTO message (content, autor) VALUES (?, ?)`,
+            [msg, userId]
+        );
+    }
+};
