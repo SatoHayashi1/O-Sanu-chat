@@ -50,7 +50,7 @@ module.exports = {
     try {
       return await db.all(
         `SELECT msg_id, content, login, user_id from message
-         JOIN user ON message.autor = user.user_id`
+        JOIN user ON message.autor = user.user_id`
         );
     } catch (dbError) {
       console.error(dbError);
