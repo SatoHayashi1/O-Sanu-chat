@@ -56,3 +56,35 @@ li {
     font-size: 1.5rem;
     margin: 0.5rem;
 }
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.reg {
+    background-color: #0026ca;
+    margin-top: 60%;
+    display: flex;
+    width: 50%;
+    height: 35%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.reg h2.input {
+    color: aliceblue;
+    margin: 50px;
+}
+.reg input{
+    width: 50%;
+    height: 35%;
+}
+.reg button {
+    background-color: aqua;
+    color: aqua;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    border: 0;
+    cursor: pointer;
+}
