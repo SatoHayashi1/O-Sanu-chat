@@ -62,4 +62,21 @@ module.exports = {
       [msg, userId]
     );
   }
+addUser: async (user) => {
+  await db.run(
+    `INSERT INTO user (login, password) VALUES (?, ?)`,
+    [user.login, user.password]
+  );
+},
+getAuthToken: async(user) => {
+  const candidate = await db.all(`SELECT * FROM user WHERE login = ?`, [user.login]);
+  if(!candidate.length) {
+    throw 'Wrong login';
+  }
+  if(candidate[0].password !== user.password){
+    throw 'Wrong password';
+  }
+    return candidate[0].user_id + '.' + candidate[0].login + '.' +crypto.randomBytes(20).toString('hex');
+
+  };
 };
