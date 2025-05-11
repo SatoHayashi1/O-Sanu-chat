@@ -6,6 +6,7 @@ const scriptFile = fs.readFileSync(path.join(__dirname, 'static', 'script.js'));
 const styleFile = fs.readFileSync(path.join(__dirname, 'static', 'style.css'));
 const registerFile = fs.readFileSync(path.join(__dirname, 'static', 'register.html'));
 const authFile = fs.readFileSync(path.join(__dirname, 'static', 'auth.js'));
+const loginFile = fs.readFileSync(path.join(__dirname, 'static', 'login.html'));
 const server = http.createServer((req, res) => {
     switch(req.url) {
         case '/': return res.end(indexHtmlFile);
@@ -13,6 +14,7 @@ const server = http.createServer((req, res) => {
         case '/style.css': return res.end(styleFile);
         case '/register': return res.end(registerFile);
         case '/auth.js': return res.end(authFile);
+        case '/login': return res.end(loginFile);
     }
     return res.end('Error 404');
 });
