@@ -32,6 +32,7 @@ function guarded(req, res) {
   const credentionals = getCredentionals(req);
   if(!credentionals) {
     res.writeHead(401, {'Location': '/register'})
+    return res.end();
   }
   if(req.method === 'GET') {
     switch(req.url) {
@@ -98,10 +99,11 @@ const io = new Server(server);
 io.on('connection', async (socket) => {
   console.log('a user connected. id - ' + socket.id);
   let userNickname = 'admin';
+  let userId = socket.credentionals?.user_id;
   let messages = await db.getMessages();
   socket.emit('all_messages', messages);
   socket.on('new_message', (message) => {
-    db.addMessage(message, 1);
+    db.addMessage(message, userId);
     io.emit('message', userNickname + ': ' + message);
   });
 });
