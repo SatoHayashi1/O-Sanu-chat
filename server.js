@@ -98,7 +98,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 io.on('connection', async (socket) => {
   console.log('a user connected. id - ' + socket.id);
-  let userNickname = 'admin';
+  let userNickname = socket.credentionals?.login;
   let userId = socket.credentionals?.user_id;
   let messages = await db.getMessages();
   socket.emit('all_messages', messages);
@@ -107,13 +107,13 @@ io.on('connection', async (socket) => {
     io.emit('message', userNickname + ': ' + message);
   });
 });
-
 io.use((socket, next) => {
   const cookie = socket.handshake.auth.cookie;
-  const credentionals = getCredentionals(cookie);
+  const credentionals = getCredentionals((cookie));
   if(!credentionals) {
-    next(new Error("no auth"));
+    next(new Error('Authentication error'));
   }
-  socket.credentionals = credentionals
+  socket.credentionals = credentionals;
   next();
 })
+
